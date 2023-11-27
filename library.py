@@ -48,9 +48,10 @@ class Library:
         for book in self.books:
             if book.name == book_name:
                 if book in user.borrowedBooks:
-                    user.returnBook.append(book)
-                    user.borrowedBook.remove(book)
+                    user.returnBooks.append(book)
+                    user.borrowedBooks.remove(book)
                     book.quantity += 1
+                    print('Returned Book successfully')
                     return
         print(f'Not found any book with this name {book_name}')        
 
@@ -108,7 +109,6 @@ while True:
             elif choice == 4:
                 currentUser = None
         else:
-            print(f'Welcom Back {currentUser.name} ')
             print('Options: ')
             print('1: Borrow Book')
             print('2: Return Book')
@@ -121,11 +121,11 @@ while True:
                 usl.borrowBook(currentUser, name)
             elif choice == 2:
                 name = input('Enter Book Name: ')
-                usl.borrowBook(currentUser, name)
+                usl.returnBook(currentUser, name)
             elif choice == 3:
                 for book in usl.borrowBook:
                     print(book.book_name)
-                
+            
 
 
 
