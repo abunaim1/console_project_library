@@ -28,7 +28,7 @@ class Library:
         self.users.append(user)
         print('Registration Sucfully Completed !')
 
-    def borrowBook(self, user_name, book_name):
+    def borrowBook(self, user, book_name):
         for book in self.books:
             if book.name == book_name:
                 if book in user.borrowedBooks:
@@ -40,15 +40,24 @@ class Library:
                 else:
                     user.borrowedBooks.append(book)
                     book.quantity -= 1
+                    print('Borrowed Book successfully')
                     return
         print(f'Not found any book with this name {book_name}')
 
-                
+    def returnBook(self, user_name, book_name):
+        for book in self.books:
+            if book.name == book_name:
+                if book in user.borrowedBooks:
+                    user.returnBook.append(book)
+                    user.borrowedBook.remove(book)
+                    book.quantity += 1
+                    return
+        print(f'Not found any book with this name {book_name}')        
+
 
 
 usl = Library('UIU Smart Library')
 admin = usl.addUser(1, 'Admin', 'admin')
-# naim = usl.addUser(2, 'Abu Naim', '!@#abd')
 
 currentUser = admin 
 
@@ -106,6 +115,19 @@ while True:
             print('3: Show all borrowed book')
             print('4: Show History')
             print('5: LogOut')
+            choice = int(input())
+            if choice == 1:
+                name = input('Enter Book Name: ')
+                usl.borrowBook(currentUser, name)
+            elif choice == 2:
+                name = input('Enter Book Name: ')
+                usl.borrowBook(currentUser, name)
+            elif choice == 3:
+                for book in usl.borrowBook:
+                    print(book.book_name)
+                
+
+
 
 
 
