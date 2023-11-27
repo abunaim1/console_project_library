@@ -1,11 +1,11 @@
 class Book:
-    def __init__(self, name, quantity, id) -> None:
+    def __init__(self, id, name, quantity) -> None:
         self.name = name
         self.quantity = quantity
         self.id = id
 
 class User:
-    def __init__(self, name, id, password) -> None:
+    def __init__(self, id, name, password) -> None:
         self.name = name
         self.id = id
         self.password = password
@@ -17,18 +17,40 @@ class Library:
         self.name = name
         self.users = []
         self.books = []
+
     def addBooks(self,id, name, quantity):
         book = Book(id, name, quantity)
         self.books.append(book)
+        print(f'Book {name} Added successfully! ')
+
     def addUser(self, id, name, password):
         user = User(id, name, password)
         self.users.append(user)
+        print('Registration Sucfully Completed !')
+
+    def borrowBook(self, user_name, book_name):
+        for book in self.books:
+            if book.name == book_name:
+                if book in user.borrowedBooks:
+                    print('You have already Taken this book')
+                    return
+                elif book.quantity == 0:
+                    print('No Copy available ')
+                    return
+                else:
+                    user.borrowedBooks.append(book)
+                    book.quantity -= 1
+                    return
+        print(f'Not found any book with this name {book_name}')
+
+                
+
 
 usl = Library('UIU Smart Library')
-admin = usl.addUser(1, 'Admin', 'Admin')
-naim = usl.addUser(2, 'Abu Naim', '!@#abd')
+admin = usl.addUser(1, 'Admin', 'admin')
+# naim = usl.addUser(2, 'Abu Naim', '!@#abd')
 
-currentUser = None
+currentUser = admin 
 
 while True:
     if currentUser == None:
@@ -41,7 +63,7 @@ while True:
 
             match = False
             for user in usl.users:
-                if user.id == id and user.password == password:
+                if user.password == password:
                     currentUser = user
                     match = True
                     break
@@ -58,7 +80,7 @@ while True:
             user = usl.addUser(id, name, password)
             currentUser = user
     else:
-        print(f'Welcom United Smart Library {currentUser.name}')
+        print(f'Welcom Back {currentUser.name} ')
         if currentUser.name == 'Admin':
             print('Options: ')
             print('1: Add Book')
@@ -67,6 +89,27 @@ while True:
             print('4: LogOut')
             choice = int(input('Enter your choice: '))
             if choice == 1:
+                id = int(input('Enter Book id: '))
+                book = input('Enter Book Name: ')
+                quantity = int(input('Enter Quantity: '))
+                usl.addBooks(id, book, quantity)
+            elif choice == 3:
+                for book in usl.books:
+                    print(f'Book Name: {book.name} ID: {book.id}')
+            elif choice == 4:
+                currentUser = None
+        else:
+            print(f'Welcom Back {currentUser.name} ')
+            print('Options: ')
+            print('1: Borrow Book')
+            print('2: Return Book')
+            print('3: Show all borrowed book')
+            print('4: Show History')
+            print('5: LogOut')
+
+
+
+
 
 
 
