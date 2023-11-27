@@ -123,9 +123,13 @@ while True:
                 name = input('Enter Book Name: ')
                 usl.returnBook(currentUser, name)
             elif choice == 3:
-                for book in usl.borrowBook:
-                    print(book.book_name)
-            
+                for book in currentUser.borrowedBooks:
+                    print(book.name)
+            elif choice == 4:
+                for book in currentUser.returnBooks:
+                    print(book.name)
+            elif choice == 5:
+                currentUser = None
 
 
 
