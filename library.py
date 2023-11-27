@@ -98,11 +98,25 @@ while True:
             print('3: Show All Book')
             print('4: LogOut')
             choice = int(input('Enter your choice: '))
+
             if choice == 1:
                 id = int(input('Enter Book id: '))
                 book = input('Enter Book Name: ')
                 quantity = int(input('Enter Quantity: '))
                 usl.addBooks(id, book, quantity)
+
+            elif choice == 2:
+                id = int(input('Enter your Id: '))
+                name = input('Enter your Name: ')
+                password = input('Enter Your Password: ')
+                match = False
+                for user in usl.users:
+                    if user.id == id:
+                        print(f'This {name} already user')
+                        match = True
+                if match == False:
+                    usl.addUser(id, name, password)
+                    
             elif choice == 3:
                 for book in usl.books:
                     print(f'Book Name: {book.name} ID: {book.id}')
